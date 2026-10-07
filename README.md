@@ -46,7 +46,7 @@ Jenkins Docker CI/CD pipeline is working
 Clone the repository:
 
 ```bash
-git clone https://github.com/nisha-subramaniyan/jenkins-docker-demo.git
+git clone [https://github.com/nisha-subramaniyan/jenkins-docker-demo.git]
 cd jenkins-docker-demo
 ```
 
