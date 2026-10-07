@@ -46,7 +46,7 @@ Jenkins Docker CI/CD pipeline is working
 Clone the repository:
 
 ```bash
-git clone [https://github.com/nisha-subramaniyan/jenkins-docker-demo.git]
+git clone [https://github.com/nisha-subramaniyan/jenkins-docker-demo.git](https://github.com/nisha-subramaniyan/jenkins-docker-demo.git)
 cd jenkins-docker-demo
 ```
 
@@ -109,7 +109,7 @@ Create a Jenkins Pipeline job with the following configuration:
 ```text
 Definition: Pipeline script from SCM
 SCM: Git
-Repository URL: https://github.com/nisha-subramaniyan/jenkins-docker-demo.git
+Repository URL: [https://github.com/nisha-subramaniyan/jenkins-docker-demo.git](https://github.com/nisha-subramaniyan/jenkins-docker-demo.git)
 Branch: main
 Script Path: Jenkinsfile
 ```
@@ -152,7 +152,7 @@ The credentials are used in the Jenkinsfile through `withCredentials`. Secrets a
 Docker Hub image:
 
 ```text
-https://hub.docker.com/r/nishasubramaniyan/jenkins-docker-demo
+[https://hub.docker.com/r/nishasubramaniyan/jenkins-docker-demo](https://hub.docker.com/r/nishasubramaniyan/jenkins-docker-demo)
 ```
 
 The pipeline publishes two tags:
@@ -260,5 +260,5 @@ The following evidence should be included:
 GitHub repository:
 
 ```text
-https://github.com/nisha-subramaniyan/jenkins-docker-demo.git
+[https://github.com/nisha-subramaniyan/jenkins-docker-demo.git](https://github.com/nisha-subramaniyan/jenkins-docker-demo.git)
 ```
