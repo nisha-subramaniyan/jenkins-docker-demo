@@ -1,0 +1,72 @@
+---
+name: DevSecOps CI Pipeline
+
+on:
+  push:
+    branches: [main, devsecops-improvements]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-build:
+    name: Validate, Build and Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Validate shell scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          scripts=( *.sh )
+          for script in "${scripts[@]}"; do
+            bash -n "$script"
+            echo "Syntax OK: $script"
+          done
+
+      - name: Validate Dockerfile exists
+        run: test -f Dockerfile
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --pull \
+            -t jenkins-docker-demo:ci \
+            .
+
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: jenkins-docker-demo:ci
+          format: table
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+
+      - name: Generate vulnerability report
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: jenkins-docker-demo:ci
+          format: json
+          output: trivy-report.json
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+
+      - name: Upload scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-security-report
+          path: trivy-report.json
+          if-no-files-found: warn
+          retention-days: 30
